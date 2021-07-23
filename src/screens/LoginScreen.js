@@ -1,11 +1,27 @@
 import React, {useState} from 'react'
-import { View, Text, Image, StyleSheet, KeyboardAvoidingView } from 'react-native'
+import { View, Text, Image, StyleSheet, TouchableOpacity, KeyboardAvoidingView, Alert } from 'react-native'
 import {TextInput, Button} from 'react-native-paper';
+import firebase from 'firebase';
 
-export default function LoginScreen() {
+export default function LoginScreen({navigation}) {
 
     const [email, setEmail]=useState('');
     const [password, setPassword]=useState('');
+
+    const userLogin = ()=>{
+
+        if(!email || !password)Alert.alert("Please enter required fields!");
+
+        else{
+            firebase.auth().signInWithEmailAndPassword(email, password)
+            .then((result)=>{
+                console.log("signin");
+            })
+            .catch((error)=>{
+                Alert.alert("The password is invalid or the user does not have a password.");
+            })
+        }
+    }
 
     return (
         <KeyboardAvoidingView style={styles.main}>
@@ -16,7 +32,8 @@ export default function LoginScreen() {
             <View style={styles.box2}>
                 <TextInput mode="outlined" label="Email" value={email} onChangeText={text => setEmail(text)}/>
                 <TextInput mode="outlined" label="Password" value={password} onChangeText={text => setPassword(text)} secureTextEntry={true}/>
-                <Button  mode="contained" onPress={() => console.log('Pressed')}> Log In </Button>
+                <Button  mode="contained" onPress={() => userLogin()}> Log In </Button>
+                <TouchableOpacity onPress={()=>navigation.navigate("signup")}><Text style={{textAlign: "center"}}>Don't have a account ? Sign Up !</Text></TouchableOpacity>
             </View>
             
         </KeyboardAvoidingView>
