@@ -28,7 +28,7 @@ export default function LoginScreen({navigation}) {
     return (
         <KeyboardAvoidingView style={styles.main}>
             <View style={styles.box1}>
-                <Image style={{width:200,height:200}} source={require('../assets/cnqlogo.png')}/>
+                <Image style={{width:200,height:200}} source={require('../assets/logo.png')}/>
                 <Text style={styles.text}>Please Sign Up to continue</Text>
             </View>
             <View style={styles.box2}>

@@ -4,7 +4,7 @@ import Constants from 'expo-constants';
 import {StyleSheet, View} from 'react-native';
 import LoginScreen from "./screens/LoginScreen";
 import SignupScreen from "./screens/SignupScreen";
-import CreateAdScreen from "./screens/CreateAdScreen";
+import CreatePostScreen from "./screens/CreatePostScreen";
 import HomeScreen from "./screens/ListItemScreen";
 import AccountScreen from './screens/AccountScreen';
 import { DefaultTheme,Provider as PaperProvider } from 'react-native-paper';
@@ -81,7 +81,7 @@ export default function MainApp() {
       }}
       >
         <Tab.Screen name="Home" component={HomeScreen} options={{title:""}}/>
-        <Tab.Screen name="Create" component={CreateAdScreen} options={{title:""}} />
+        <Tab.Screen name="Create" component={CreatePostScreen} options={{title:""}} />
         <Tab.Screen name="Account" component={AccountScreen} options={{title:""}} />
       </Tab.Navigator>
     );
