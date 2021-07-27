@@ -16,13 +16,15 @@ import Feather from 'react-native-vector-icons/Feather';
 import firebase from "firebase";
 
 var firebaseConfig = {
-  apiKey: "AIzaSyDfvJTQOWdHRoZArwhu-OvNInkzsVJIfFI",
-  authDomain: "react-olx-9c992.firebaseapp.com",
-  projectId: "react-olx-9c992",
-  storageBucket: "react-olx-9c992.appspot.com",
-  messagingSenderId: "100284513177",
-  appId: "1:100284513177:web:c73be215c78ea74eea7108"
+  apiKey: "AIzaSyD6BfxmyMhCi4gudz-7At5_HaiGgtBJcKw",
+  authDomain: "sagar-goyal.firebaseapp.com",
+  databaseURL: "https://sagar-goyal-default-rtdb.firebaseio.com",
+  projectId: "sagar-goyal",
+  storageBucket: "sagar-goyal.appspot.com",
+  messagingSenderId: "209383659507",
+  appId: "1:209383659507:web:920213bfcf9639aa086486"
 };
+
 if(firebase.apps.length===0){
   firebase.initializeApp(firebaseConfig);
 }
