@@ -46,7 +46,26 @@ const AccountScreen = () => {
               .catch(function (error) {
                 console.log(error);
               });
-            Alert.alert("Post deleted successfully...");
+            Alert.alert("Success!!","Post deleted successfully...");
+          },
+        },
+        
+        {
+          text: "No",
+        },
+      ]
+    );
+  };
+
+  const logOut = () => {
+    return Alert.alert(
+      "Are your sure?",
+      "Are you sure you want to Log Out ?",
+      [
+        {
+          text: "Yes",
+          onPress: () => {
+            firebase.auth().signOut();
           },
         },
         
@@ -124,9 +143,7 @@ const AccountScreen = () => {
     );
   };
 
-  const logOut = () => {
-    firebase.auth().signOut();
-  };
+
 
   return (
     <View style={styles.mainContainer}>
@@ -185,7 +202,6 @@ const styles = StyleSheet.create({
   buttton: {
     backgroundColor: "deepskyblue",
     padding: 10,
-    borderRadius:10
   },
   adsText: {
     flex: 1,

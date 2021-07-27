@@ -1,7 +1,7 @@
 {
   "expo": {
-    "name": "react-olx",
-    "slug": "react-olx",
+    "name": "react-sharememe",
+    "slug": "react-sharememe",
     "version": "1.0.0",
     "orientation": "portrait",
     "icon": "./assets/appIcon.png",

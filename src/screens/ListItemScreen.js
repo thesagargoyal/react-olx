@@ -17,7 +17,6 @@ const ListItemScreen = () => {
 
   const userID = firebase.auth().currentUser.uid;
 
-  useEffect(() => {getAds()})
 
   const getAds = async () => {
     const querySnap = await firebase.firestore().collection("ads").get();
@@ -64,6 +63,8 @@ const ListItemScreen = () => {
     }
   };
 
+
+
   useEffect(() => {
     getAds();
     return () => {};
@@ -90,17 +91,16 @@ const ListItemScreen = () => {
             >
               <Text style={styles.buttonText}>
                 {!data
-                  ? ""
+                  ? "0"
                   : data.has(item.image)
                   ? data.get(item.image)[0]
-                  : ""}{" "}
-                {!data
-                  ? " "
+                  : "0"} {!data
+                  ? "Likes"
                   : !data.has(item.image)
-                  ? ""
+                  ? "Pull to Reload"
                   : data.get(item.image)[1].indexOf(userID) > -1
                   ? "Unlike"
-                  : "Like"}
+                  : "Likes"}
               </Text>
             </Pressable>
           </View>
