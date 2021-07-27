@@ -114,7 +114,7 @@ export default function MainApp() {
   return (
   <>
     <PaperProvider theme={theme}>
-    <StatusBar barStyle="dark-content" backgroundColor="deepskyblue"/>
+    <StatusBar barStyle="dark-content" backgroundColor="#f0f2f0"/>
     <View style={styles.container}>
         <Navigation/>
     </View>

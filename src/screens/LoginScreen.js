@@ -27,15 +27,20 @@ export default function LoginScreen({navigation}) {
         <KeyboardAvoidingView style={styles.main}>
             <View style={styles.box1}>
                 <Image style={{width:200,height:200}} source={require('../assets/logo.png')}/>
-                <Text style={styles.text}>Please Login to continue</Text>
+                
             </View>
+            
             <View style={styles.box2}>
+            <Text style={styles.text}>Please Login to continue</Text>
                 <TextInput mode="outlined" label="Email" value={email} onChangeText={text => setEmail(text)}/>
                 <TextInput mode="outlined" label="Password" value={password} onChangeText={text => setPassword(text)} secureTextEntry={true}/>
                 <Button  mode="contained" onPress={() => userLogin()}> Log In </Button>
-                <TouchableOpacity onPress={()=>navigation.navigate("signup")}><Text style={{textAlign: "center"}}>Don't have a account ? Sign Up !</Text></TouchableOpacity>
+                <TouchableOpacity onPress={()=>navigation.navigate("signup")}><Text style={{textAlign: "center", fontWeight: "bold"}}>Don't have a account ? Sign Up !</Text></TouchableOpacity>
             </View>
-            
+            <View style={styles.author}>
+                <Image source={require('../../assets/github.png')} style={styles.github} />
+                <Text style={styles.githubText}>github.com/thesagargoyal</Text>
+            </View>
         </KeyboardAvoidingView>
     )
 }
@@ -43,17 +48,35 @@ export default function LoginScreen({navigation}) {
 const styles = StyleSheet.create({
     main:{
         display:"flex",
-        justifyContent:"center"
+        justifyContent:"center",
+        flex:1
     },
     box1:{
         alignItems:"center",
+        flex:3
     },
     box2:{
         paddingHorizontal:40,
-        height:'50%',
-        justifyContent:"space-evenly"
+        justifyContent:"space-evenly",
+        flex:5
     },
     text:{
         fontSize:22,
+        textAlign: "center",
+    },
+    author: {
+        flex:2,
+        display: "flex",
+        flexDirection: "row",
+        alignItems: "center",
+        justifyContent: "center",
+    },
+    github: {
+        height: 40,
+        width: 40,
+    },
+    githubText: {
+        fontWeight: "bold",
+        fontSize:15
     }
 })

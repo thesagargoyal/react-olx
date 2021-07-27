@@ -76,7 +76,7 @@ const AccountScreen = () => {
     );
   };
 
-  const getAds = async () => {
+  const getPost = async () => {
     const querySnap = await firebase
       .firestore()
       .collection("ads")
@@ -108,7 +108,7 @@ const AccountScreen = () => {
   };
 
   useEffect(() => {
-    getAds();
+    getPost();
     getEmail();
     return () => {};
   }, []);
@@ -167,7 +167,7 @@ const AccountScreen = () => {
           renderItem={({ item }) => render(item)}
           onRefresh={() => {
             setLoading(true);
-            getAds();
+            getPost();
             setLoading(false);
           }}
           refreshing={loading}

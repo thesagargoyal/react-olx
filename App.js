@@ -4,13 +4,8 @@ import MainApp from "./src/MainApp"
 import _ from 'lodash';
 
 
-LogBox.ignoreLogs(["Setting a timer"]);
-const _console = _.clone(console);
-console.warn = (message: string) => {
-if (message.indexOf("Setting a timer") <= -1) {
-_console.warn(message);
-}
-};
+import { YellowBox } from "react-native";
+YellowBox.ignoreWarnings([""]);
 
 export default function App() {
   return (

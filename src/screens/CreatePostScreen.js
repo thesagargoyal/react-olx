@@ -127,7 +127,7 @@ const CreatePostScreen = ({ navigation }) => {
           label="Caption..."
           value={caption}
           mode="outlined"
-          numberOfLines={3}
+          maxLength={50}
           multiline={true}
           onChangeText={(text) => setCaption(text)}
         />

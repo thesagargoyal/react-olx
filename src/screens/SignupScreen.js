@@ -19,8 +19,6 @@ export default function LoginScreen({ navigation }) {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
 
-
-
   const userSignup = async () => {
     if (!email || !password || !name)
       Alert.alert("Please enter required fields!");
@@ -56,9 +54,10 @@ export default function LoginScreen({ navigation }) {
           style={{ width: 200, height: 200 }}
           source={require("../assets/logo.png")}
         />
-        <Text style={styles.text}>Please Sign Up to continue</Text>
+        
       </View>
       <View style={styles.box2}>
+      <Text style={styles.text}>Please Sign Up to continue</Text>
         <TextInput
           mode="outlined"
           label="Name"
@@ -82,10 +81,17 @@ export default function LoginScreen({ navigation }) {
           Sign Up
         </Button>
         <TouchableOpacity onPress={() => navigation.goBack("login")}>
-          <Text style={{ textAlign: "center" }}>
+          <Text style={{ textAlign: "center", fontWeight: "bold"}}>
             Already have a account ? Log In !
           </Text>
         </TouchableOpacity>
+      </View>
+      <View style={styles.author}>
+        <Image
+          source={require("../../assets/github.png")}
+          style={styles.github}
+        />
+        <Text style={styles.githubText}>github.com/thesagargoyal</Text>
       </View>
     </KeyboardAvoidingView>
   );
@@ -95,16 +101,35 @@ const styles = StyleSheet.create({
   main: {
     display: "flex",
     justifyContent: "center",
+    flex: 1,
   },
   box1: {
     alignItems: "center",
+    flex: 3,
   },
   box2: {
     paddingHorizontal: 40,
     height: "50%",
     justifyContent: "space-evenly",
+    flex: 5,
   },
   text: {
     fontSize: 22,
+    textAlign: "center",
+  },
+  author: {
+    flex: 2,
+    display: "flex",
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  github: {
+    height: 40,
+    width: 40,
+  },
+  githubText: {
+    fontWeight: "bold",
+    fontSize: 15,
   },
 });

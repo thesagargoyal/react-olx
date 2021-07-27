@@ -18,7 +18,7 @@ const ListItemScreen = () => {
   const userID = firebase.auth().currentUser.uid;
 
 
-  const getAds = async () => {
+  const getPost = async () => {
     const querySnap = await firebase.firestore().collection("ads").get();
     const result = querySnap.docs.map((docSnap) => docSnap.data());
 
@@ -53,20 +53,20 @@ const ListItemScreen = () => {
       count = count - 1;
       await firebase.database().ref(`likes/${id}/likedBy`).set(likedBy);
       await firebase.database().ref(`likes/${id}/count`).set(count);
-      getAds();
+      getPost();
     } else {
       count += 1;
       likedBy.push(firebase.auth().currentUser.uid);
       await firebase.database().ref(`likes/${id}/likedBy`).set(likedBy);
       await firebase.database().ref(`likes/${id}/count`).set(count);
-      getAds();
+      getPost();
     }
   };
 
 
 
   useEffect(() => {
-    getAds();
+    getPost();
     return () => {};
   }, []);
 
@@ -86,7 +86,7 @@ const ListItemScreen = () => {
           <View style={styles.buttonContainer}>
             <Pressable
               onPress={() => updateLikes(item.image)}
-              style={{ width: "40%" }}
+              style={{ width: "50%" }}
               android_ripple={{ borderless: "true", color: "lightgray" }}
             >
               <Text style={styles.buttonText}>
@@ -97,7 +97,7 @@ const ListItemScreen = () => {
                   : "0"} {!data
                   ? "Likes"
                   : !data.has(item.image)
-                  ? "Pull to Reload"
+                  ? "Likes Pull to Reload"
                   : data.get(item.image)[1].indexOf(userID) > -1
                   ? "Unlike"
                   : "Likes"}
@@ -118,7 +118,7 @@ const ListItemScreen = () => {
           renderItem={({ item }) => render(item)}
           onRefresh={() => {
             setLoading(true);
-            getAds();
+            getPost();
             setLoading(false);
           }}
           refreshing={loading}
