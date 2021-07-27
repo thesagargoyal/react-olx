@@ -84,23 +84,26 @@ const ListItemScreen = () => {
             <Image source={{ uri: item.image }} style={styles.imageStyle} />
           </View>
           <View style={styles.buttonContainer}>
+            <Text style={styles.buttonText}>
+              {!data
+                ? '0'
+                : data.has(item.image)
+                ? data.get(item.image)[0]
+                : '0'}{' '}
+              ❤️
+            </Text>
             <Pressable
               onPress={() => updateLikes(item.image)}
-              style={{ width: "50%" }}
-              android_ripple={{ borderless: "true", color: "lightgray" }}
-            >
+              style={{ width: '40%' }}
+              android_ripple={{ borderless: 'false', color: 'lightgray' }}>
               <Text style={styles.buttonText}>
                 {!data
-                  ? "0"
-                  : data.has(item.image)
-                  ? data.get(item.image)[0]
-                  : "0"} {!data
-                  ? "Likes"
+                  ? ''
                   : !data.has(item.image)
-                  ? "Likes Pull to Reload"
+                  ? 'Pull to Reload'
                   : data.get(item.image)[1].indexOf(userID) > -1
-                  ? "Unlike"
-                  : "Likes"}
+                  ? 'Unlike'
+                  : 'Like'}
               </Text>
             </Pressable>
           </View>
