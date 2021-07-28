@@ -7,8 +7,9 @@ import {
   Image,
   Pressable,
 } from "react-native";
-import { Avatar, Button, Card, Title, Paragraph } from "react-native-paper";
+import { Card} from "react-native-paper";
 import firebase from "firebase";
+
 const ListItemScreen = () => {
   const [items, setItems] = useState([]);
   const [loading, setLoading] = useState(false);
@@ -19,7 +20,7 @@ const ListItemScreen = () => {
 
 
   const getPost = async () => {
-    const querySnap = await firebase.firestore().collection("ads").get();
+    const querySnap = await firebase.firestore().collection("posts").orderBy('timeStamp', 'desc').get();
     const result = querySnap.docs.map((docSnap) => docSnap.data());
 
     setItems(result);
@@ -76,6 +77,7 @@ const ListItemScreen = () => {
         <View style={styles.innerContainer}>
           <View style={styles.nameContainer}>
             <Text style={styles.nameText}>{item.name}</Text>
+            <Text style={styles.dateText}>{item.createdAt}</Text>
           </View>
           <View style={styles.captionContainer}>
             <Text style={styles.captionText}>{item.caption}</Text>
@@ -134,13 +136,12 @@ const ListItemScreen = () => {
 const styles = StyleSheet.create({
   card: {
     margin: 10,
-    elevation: 3,
   },
   postContainer: {
     margin: 10,
     height: 380,
-    elevation: 3,
     borderRadius: 15,
+    elevation: 2,
   },
   imageStyle: {
     width: 280,
@@ -152,9 +153,12 @@ const styles = StyleSheet.create({
   },
   nameContainer: {
     flex: 1,
-    justifyContent: "center",
+    justifyContent: "space-between",
     borderBottomWidth: 1,
     borderColor: "lightgray",
+    display: "flex",
+    flexDirection: "row",
+    alignItems: "center",
   },
   nameText: {
     fontSize: 20,
@@ -166,16 +170,25 @@ const styles = StyleSheet.create({
     marginHorizontal: 10,
   },
   captionText: {
-    fontSize: 18,
+    fontSize: 20,
+  },
+  dateText: {
+    fontSize: 10,
+    color: "darkgray"
   },
   imageConatiner: {
     flex: 6,
     alignItems: "center",
+    borderBottomWidth:1,
+    borderColor:"lightgray"
   },
   buttonContainer: {
     flex: 1,
     margin: 5,
     alignItems: "center",
+    display: "flex",
+    flexDirection: "row",
+    justifyContent: "center",
   },
   buttonText: {
     fontSize: 20,
