@@ -13,6 +13,7 @@ import firebase from "firebase";
 
 const AccountScreen = () => {
 
+
   const buttonRipple = {
     color: "gray",
     borderless: false,
@@ -31,25 +32,25 @@ const AccountScreen = () => {
           onPress: () => {
             var task = firebase
               .firestore()
-              .collection("ads")
+              .collection("posts")
               .where("image", "==", uri);
             task.get().then(function (querySnapshot) {
               querySnapshot.forEach(function (doc) {
                 doc.ref.delete();
               });
             });
-            var desertRef = firebase.storage().refFromURL(uri);
+            var deleteThisImage = firebase.storage().refFromURL(uri);
 
-            desertRef
+            deleteThisImage
               .delete()
               .then(function () {})
               .catch(function (error) {
                 console.log(error);
               });
-            Alert.alert("Success!!","Post deleted successfully...");
+            Alert.alert("Success!!", "Post deleted successfully...");
           },
         },
-        
+
         {
           text: "No",
         },
@@ -58,49 +59,29 @@ const AccountScreen = () => {
   };
 
   const logOut = () => {
-    return Alert.alert(
-      "Are your sure?",
-      "Are you sure you want to Log Out ?",
-      [
-        {
-          text: "Yes",
-          onPress: () => {
-            firebase.auth().signOut();
-          },
+    return Alert.alert("Are your sure?", "Are you sure you want to Log Out ?", [
+      {
+        text: "Yes",
+        onPress: () => {
+          console.log("Logging out...");
+          firebase.auth().signOut();
         },
-        
-        {
-          text: "No",
-        },
-      ]
-    );
+      },
+
+      {
+        text: "No",
+      },
+    ]);
   };
 
   const getPost = async () => {
     const querySnap = await firebase
       .firestore()
-      .collection("ads")
+      .collection("posts")
       .where("uid", "==", firebase.auth().currentUser.uid)
       .get();
     const result = querySnap.docs.map((docSnap) => docSnap.data());
     setItems(result);
-  };
-
-  const deletePost = async (uri) => {
-    var task = firebase.firestore().collection("ads").where("image", "==", uri);
-    task.get().then(function (querySnapshot) {
-      querySnapshot.forEach(function (doc) {
-        doc.ref.delete();
-      });
-    });
-    var desertRef = firebase.storage().refFromURL(uri);
-
-    desertRef
-      .delete()
-      .then(function () {})
-      .catch(function (error) {
-        console.log(error);
-      });
   };
 
   const getEmail = () => {
@@ -117,10 +98,9 @@ const AccountScreen = () => {
     return (
       <Card key={item.image} style={styles.postContainer}>
         <View style={styles.innerContainer}>
-          <View
-            style={styles.captionContainer}
-          >
+          <View style={styles.captionContainer}>
             <Text style={styles.captionText}>{item.caption}</Text>
+            <Text style={styles.dateText}>{item.createdAt}</Text>
           </View>
           <View style={styles.imageConatiner}>
             <Image source={{ uri: item.image }} style={styles.imageStyle} />
@@ -131,19 +111,13 @@ const AccountScreen = () => {
               style={{ width: "40%" }}
               android_ripple={{ borderless: "true", color: "lightgray" }}
             >
-              <Text
-                style={styles.buttonText}
-              >
-                Delete Post
-              </Text>
+              <Text style={styles.buttonText}>Delete Post</Text>
             </Pressable>
           </View>
         </View>
       </Card>
     );
   };
-
-
 
   return (
     <View style={styles.mainContainer}>
@@ -154,7 +128,7 @@ const AccountScreen = () => {
           onPress={() => logOut()}
           android_ripple={buttonRipple}
         >
-          <Text style={{color:"white", fontWeight:"bold"}}>Log Out</Text>
+          <Text style={{ color: "white", fontWeight: "bold" }}>Log Out</Text>
         </Pressable>
       </View>
       <View style={styles.adsText}>
@@ -188,8 +162,8 @@ const styles = StyleSheet.create({
     display: "flex",
     flexDirection: "row",
     alignItems: "center",
-    borderBottomWidth:1,
-    borderColor:"lightgray"
+    borderBottomWidth: 1,
+    borderColor: "lightgray",
   },
   headerText: {
     textAlign: "center",
@@ -213,47 +187,55 @@ const styles = StyleSheet.create({
   },
   card: {
     margin: 10,
-    elevation: 3,
   },
   postContainer: {
     margin: 10,
     height: 340,
-    elevation: 3,
     borderRadius: 15,
+    elevation: 2,
   },
   imageStyle: {
     width: 280,
     height: 200,
   },
-  innerContainer: { 
-    flex: 2, 
-    margin: 10 
+  innerContainer: {
+    flex: 2,
+    margin: 10,
   },
-  captionContainer:{
+  captionContainer: {
     flex: 2,
     justifyContent: "center",
     marginHorizontal: 10,
+    display: "flex",
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "space-between",
   },
-  captionText:{ 
-    fontSize: 18 
+  captionText: {
+    fontSize: 20,
   },
-  imageConatiner:{ 
-    flex: 6, 
-    alignItems: "center" 
+  dateText: {
+    fontSize: 10,
+    color: "darkgray"
   },
-  buttonContainer:{ 
-    flex: 2, 
-    margin: 5, 
-    alignItems: "center", 
-    justifyContent: "center"
+  imageConatiner: {
+    flex: 7,
+    alignItems: "center",
+    borderBottomWidth:1,
+    borderColor:"lightgray"
+  },
+  buttonContainer: {
+    flex: 1,
+    margin: 5,
+    alignItems: "center",
+    justifyContent: "center",
   },
   buttonText: {
     fontSize: 20,
     color: "red",
     textAlign: "center",
     fontWeight: "bold",
-  }
+  },
 });
 
 export default AccountScreen;
-

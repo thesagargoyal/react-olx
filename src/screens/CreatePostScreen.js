@@ -83,12 +83,14 @@ const CreatePostScreen = ({ navigation }) => {
     if (caption.length > 0) {
       await firebase
         .firestore()
-        .collection("ads")
+        .collection("posts")
         .add({
           name,
           caption,
           image,
           uid: firebase.auth().currentUser.uid,
+          createdAt : new Date().toDateString(),
+          timeStamp : firebase.firestore.FieldValue.serverTimestamp()
         })
         .then(async (res) => {
           await firebase
