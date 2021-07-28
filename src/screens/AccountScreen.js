@@ -29,8 +29,8 @@ const AccountScreen = () => {
       [
         {
           text: "Yes",
-          onPress: () => {
-            var task = firebase
+          onPress: async () => {
+            var task = await firebase
               .firestore()
               .collection("posts")
               .where("image", "==", uri);
@@ -39,7 +39,7 @@ const AccountScreen = () => {
                 doc.ref.delete();
               });
             });
-            var deleteThisImage = firebase.storage().refFromURL(uri);
+            var deleteThisImage = await firebase.storage().refFromURL(uri);
 
             deleteThisImage
               .delete()
@@ -47,6 +47,16 @@ const AccountScreen = () => {
               .catch(function (error) {
                 console.log(error);
               });
+          
+              let id='';
+
+              var ref = await firebase.database().ref("likes");
+              ref.orderByChild("image").equalTo(uri).on("child_added", function(snapshot) {
+                id =snapshot.key
+              });
+             
+              await firebase.database().ref('likes/'+id).remove();
+
             Alert.alert("Success!!", "Post deleted successfully...");
           },
         },
