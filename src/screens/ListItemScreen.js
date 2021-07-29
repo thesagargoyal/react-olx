@@ -64,10 +64,8 @@ const ListItemScreen = () => {
     }
   };
 
-
-
   useEffect(() => {
-    getPost();
+    setInterval(()=>{getPost()},3000)
     return () => {};
   }, []);
 
